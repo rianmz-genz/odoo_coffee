@@ -1,0 +1,16 @@
+<odoo>
+  <data>
+    <record id="inherit_calendar_form" model="ir.ui.view">
+      <field name="name">calendar.event.inherit.vie</field>
+      <field name="model">calendar.event</field>
+      <field name="inherit_id" ref="calendar.view_calendar_event_form" />
+      <field name="arch" type="xml">
+        <!-- find field description and add the field
+               new_field after it -->
+        <xpath expr="//field[@name='location']" position="after">
+          <field name="fleet_id" />
+        </xpath>
+      </field>
+    </record>
+  </data>
+</odoo>
