@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Inherit the calendar event form view -->
+        <record id="inherit_calendar_event" model="ir.ui.view">
+            <field name="name">Calendar Event Form with Many2many</field>
+            <field name="model">calendar.event</field>
+            <field name="inherit_id" ref="calendar.view_calendar_event_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='page_invitations']" position="after">
+                    <page name="sale" string="Sales">
+                        <field name="sale_ids" context="{'default_create': False, 'default_edit': False}">
+                            <tree string="Sales Orders" editable="false">
+                                <field name="name"/>
+                            </tree>
+                        </field>
+                    </page>
+                    <page name="fleet" string="Fleets">
+                        <field name="fleet_ids" context="{'default_create': False, 'default_edit': False}">
+                            <tree string="Fleets" editable="false">
+                                <field name="name"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
