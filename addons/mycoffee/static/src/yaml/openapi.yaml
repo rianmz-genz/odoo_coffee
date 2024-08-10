@@ -1,0 +1,162 @@
+openapi: 3.0.0
+info:
+  title: My Coffee API
+  description: This is a full documentation API for My Coffee.
+  version: 1.0.0
+servers:
+  - url: /api
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization  # Nama header tempat token API diharapkan
+security:
+  - ApiKeyAuth: []  # Semua endpoint akan memerlukan API key
+paths:
+  /products:
+    get:
+      summary: Get a list of products
+      security:
+        - ApiKeyAuth: []  # Menggunakan API key untuk autentikasi pada endpoint ini
+      responses:
+        '200':
+          description: A list of products
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Products retrieved successfully"
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: number
+                          example: 1
+                        name:
+                          type: string
+                          example: Espresso
+                        price:
+                          type: number
+                          format: float
+                          example: 2.50
+                        canBeSold:
+                          type: boolean
+                          example: true
+                        canBePurchased:
+                          type: boolean
+                          example: true
+                        type:
+                          type: string
+                          example: beverage
+                        hpp:
+                          type: number
+                          format: float
+                          example: 1.00
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Bad Request"
+                  data:
+                    type: string
+                    example: null
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Unauthorized"
+                  data:
+                    type: string
+                    example: null
+
+  /products/{id}:
+    get:
+      summary: Get a list of products
+      security:
+        - ApiKeyAuth: []  # Menggunakan API key untuk autentikasi pada endpoint ini
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: "product id" 
+      responses:
+        '200':
+          description: A list of products
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Products retrieved successfully"
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                        example: 1
+                      name:
+                        type: string
+                        example: Espresso
+                      price:
+                        type: number
+                        format: float
+                        example: 2.50
+                      canBeSold:
+                        type: boolean
+                        example: true
+                      canBePurchased:
+                        type: boolean
+                        example: true
+                      type:
+                        type: string
+                        example: beverage
+                      hpp:
+                        type: number
+                        format: float
+                        example: 1.00
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Bad Request"
+                  data:
+                    type: string
+                    example: null
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Unauthorized"
+                  data:
+                    type: string
+                    example: null

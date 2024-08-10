@@ -1,5 +1,6 @@
 from odoo import models, fields, api
 import logging
+import hashlib
 
 logger = logging.getLogger(__name__)
 
@@ -20,3 +21,18 @@ class FleetInherit(models.Model):
     
     calendar_ids = fields.Many2many('calendar.event', 'calendar_fleet_rel', 'fleet_id', 'calendar_id', string='Calendars')
     sale_ids = fields.Many2many('sale.order', 'sale_fleet_rel', 'fleet_id', 'sale_id', string='Sales Orders')
+
+class UserInherit(models.Model):
+    _inherit = 'res.users'
+    
+    token = fields.Char('Token', compute='_compute_token')
+
+    def _compute_token(self):
+        for user in self:
+            # Contoh logika untuk menghitung token
+            # Anda bisa mengganti ini dengan logika sesuai kebutuhan
+            if user.id:
+                token_string = f"user_{user.id}_{user.login}"
+                user.token = hashlib.sha256(token_string.encode('utf-8')).hexdigest()
+            else:
+                user.token = False
