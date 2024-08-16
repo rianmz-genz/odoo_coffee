@@ -11,12 +11,46 @@ components:
       type: apiKey
       in: header
       name: Authorization  # Nama header tempat token API diharapkan
-security:
-  - ApiKeyAuth: []  # Semua endpoint akan memerlukan API key
+
 paths:
+  /auth/login:  
+    post:
+      summary: Get a list of products
+      tags:
+        - AUTH
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                login: 
+                  type: string
+                  example: admin@gmail.com
+      responses:
+        '200':
+          description: A list of products
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Products retrieved successfully"
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        token:
+                          type: string
+                          example: eyJ1c2VyX2lkIjogNiwgInVzZXJfbG9naW4iOiAiYWRtQGdtYWlsLmNvbSJ9
   /products:
     get:
       summary: Get a list of products
+      tags:
+        - PRODUCT
       security:
         - ApiKeyAuth: []  # Menggunakan API key untuk autentikasi pada endpoint ini
       responses:
@@ -45,19 +79,6 @@ paths:
                           type: number
                           format: float
                           example: 2.50
-                        canBeSold:
-                          type: boolean
-                          example: true
-                        canBePurchased:
-                          type: boolean
-                          example: true
-                        type:
-                          type: string
-                          example: beverage
-                        hpp:
-                          type: number
-                          format: float
-                          example: 1.00
         '400':
           description: Bad Request
           content:
@@ -88,6 +109,8 @@ paths:
   /products/{id}:
     get:
       summary: Get a list of products
+      tags:
+        - PRODUCT
       security:
         - ApiKeyAuth: []  # Menggunakan API key untuk autentikasi pada endpoint ini
       parameters:
@@ -121,19 +144,6 @@ paths:
                         type: number
                         format: float
                         example: 2.50
-                      canBeSold:
-                        type: boolean
-                        example: true
-                      canBePurchased:
-                        type: boolean
-                        example: true
-                      type:
-                        type: string
-                        example: beverage
-                      hpp:
-                        type: number
-                        format: float
-                        example: 1.00
         '400':
           description: Bad Request
           content:

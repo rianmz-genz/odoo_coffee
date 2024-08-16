@@ -26,7 +26,7 @@ Long description of module's purpose
         'views/views.xml',
         'views/templates.xml',
         'views/inherit_calendar.xml',
-        'views/inherit_user.xml',
+        # 'views/inherit_user.xml',
         'views/docs.xml',
     ],
     # only loaded in demonstration mode
