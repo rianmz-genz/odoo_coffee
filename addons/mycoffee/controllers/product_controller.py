@@ -11,7 +11,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-class Products(http.Controller):
+class ProductController(http.Controller):
 
     @http.route('/api/docs', auth='public', website=True)
     def swagger_ui(self, **kw):
@@ -43,7 +43,6 @@ class Products(http.Controller):
         except Exception as e:
             # Convert the exception to a string for error reporting
             error_message = str(e)
-            logger.error(f"Error retrieving products: {error_message}")
             return response_json(request=request, raw=base_format({}, error_message))
     
     
@@ -51,10 +50,10 @@ class Products(http.Controller):
     @middlewares.custom_auth_required
     def by_id(self, id, **kw):
         """
-        Retrieves product storable by id.
+        Retrieve product storable by id.
 
         Returns:
-            object: data product.
+            object: productData.
             string: message
 
         Raises:
@@ -74,6 +73,5 @@ class Products(http.Controller):
         except Exception as e:
             # Convert the exception to a string for error reporting
             error_message = str(e)
-            logger.error(f"Error retrieving product by ID: {error_message}")
             raw = base_format({}, f"Error {error_message}")
             return response_json(request=request, raw=raw)

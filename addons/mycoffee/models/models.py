@@ -15,3 +15,7 @@ class Models:
     @staticmethod
     def SaleOrder(env):
         return env['sale.order'].sudo()
+    
+    @staticmethod
+    def SaleOrderLine(env):
+        return env['sale.order.line'].sudo()
