@@ -1,1 +1,1 @@
-coffee addons
+coffee for everythings
